@@ -1,7 +1,6 @@
 from time import sleep
 
-from celery_app import app 
-
+from celery_app import app
 
 
 @app.task(name="echo_task")
@@ -17,7 +16,7 @@ def echo_task(message):
     """
     print(f"Echoing message: {message}")
 
-    return "ok"
+    return message
 
 
 @app.task(name="say_hello_task")
@@ -33,22 +32,24 @@ def say_hello_task(name):
     """
     print(f"Greeting {name}")
 
-    return "ok"
+    return f"Hello, {name}!"
+
 
 @app.task(name="echo_number_task")
 def echo_number_task(number):
     """
-    A simple Celery task that echoes back the provided number.
+    A simple Celery task that prints an ascending sequence of 5 numbers
+    starting from the given number, sleeping 1 second between each, to
+    simulate a long-running task.
 
     Args:
-        number (int): The number to be echoed.
+        number (int): The number to start from.
 
     Returns:
-        str: A confirmation message.
+        int: The final number processed.
     """
-    max = number + 5
-    while(number < max):
-        print(f"Echoing number: {number}")
-        number += 1
+    limit = number + 5
+    for current in range(number, limit):
+        print(f"Echoing number: {current}")
         sleep(1)  # Simulate some processing time
-    return "ok"
+    return limit - 1
