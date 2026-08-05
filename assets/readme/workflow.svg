@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="420" viewBox="0 0 1200 420"
+     role="img" aria-labelledby="wf-title wf-desc">
+  <title id="wf-title">Celery Learn 架构 - 一次任务调用的完整旅程</title>
+  <desc id="wf-desc">producer.py 分发任务到 Redis broker 队列，worker 执行三个任务并把结果写入 Redis backend，结果再回传给生产者。展示 Celery 核心概念。</desc>
+
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="420" rx="24" fill="#0d1117"/>
+  <rect x="0" y="0" width="1200" height="3" fill="#4caf50"/>
+
+  <!-- 标题 -->
+  <text x="80" y="48" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+        font-size="18" fill="#4caf50" letter-spacing="3">HOW IT WORKS</text>
+  <text x="80" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+        font-size="24" fill="#f0f6fc">一次任务调用的完整旅程</text>
+
+  <!-- ===== 四节点卡片（x: 80/346/612/878 宽 242 高 250） ===== -->
+  <!-- 1. producer.py -->
+  <g transform="translate(80 112)">
+    <rect x="0" y="0" width="242" height="250" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <rect x="0" y="0" width="242" height="5" rx="2.5" fill="#4caf50"/>
+    <text x="18" y="44" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="20" fill="#4caf50">producer.py</text>
+    <text x="18" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="15" fill="#8b949e">生产者 · 分发任务</text>
+    <g transform="translate(18 92)">
+      <rect x="0" y="0" width="206" height="112" rx="8" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+      <text x="12" y="28" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="14" fill="#c9d1d9">echo_task.delay(...)</text>
+      <text x="12" y="56" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="14" fill="#c9d1d9">say_hello_task.delay(...)</text>
+      <text x="12" y="84" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="14" fill="#c9d1d9">echo_number_task.delay(10)</text>
+    </g>
+    <text x="18" y="230" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="13" fill="#8b949e">.delay() 异步投递</text>
+  </g>
+
+  <!-- 2. Redis Broker -->
+  <g transform="translate(346 112)">
+    <rect x="0" y="0" width="242" height="250" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <rect x="0" y="0" width="242" height="5" rx="2.5" fill="#d82c20"/>
+    <text x="18" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="20" fill="#ff7b72">Redis Broker</text>
+    <text x="18" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="15" fill="#8b949e">消息队列 · 中转</text>
+    <g transform="translate(18 92)">
+      <rect x="0" y="0" width="206" height="112" rx="8" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+      <text x="12" y="26" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="13" fill="#8b949e">queue</text>
+      <!-- 队列中的消息 -->
+      <rect x="12" y="40" width="52" height="26" rx="6" fill="#7d1f1a"/>
+      <text x="38" y="58" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#f0f6fc">echo</text>
+      <rect x="74" y="40" width="52" height="26" rx="6" fill="#7d1f1a"/>
+      <text x="100" y="58" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#f0f6fc">hello</text>
+      <rect x="136" y="40" width="52" height="26" rx="6" fill="#7d1f1a"/>
+      <text x="162" y="58" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#f0f6fc">num</text>
+      <text x="12" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="13" fill="#8b949e">先进先出 · 排队等待</text>
+    </g>
+    <text x="18" y="230" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="13" fill="#8b949e">redis://127.0.0.1:6379/0</text>
+  </g>
+
+  <!-- 3. Worker -->
+  <g transform="translate(612 112)">
+    <rect x="0" y="0" width="242" height="250" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <rect x="0" y="0" width="242" height="5" rx="2.5" fill="#1f6feb"/>
+    <text x="18" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="20" fill="#79c0ff">Worker</text>
+    <text x="18" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="15" fill="#8b949e">消费者 · 执行任务</text>
+    <g transform="translate(18 92)">
+      <rect x="0" y="0" width="206" height="112" rx="8" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+      <circle cx="18" cy="28" r="4" fill="#79c0ff"/>
+      <text x="32" y="33" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#e6edf3">echo_task</text>
+      <circle cx="18" cy="58" r="4" fill="#79c0ff"/>
+      <text x="32" y="63" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#e6edf3">say_hello_task</text>
+      <circle cx="18" cy="88" r="4" fill="#79c0ff"/>
+      <text x="32" y="93" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#e6edf3">echo_number_task</text>
+    </g>
+    <text x="18" y="230" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="13" fill="#8b949e">include=['customer']</text>
+  </g>
+
+  <!-- 4. Redis Backend -->
+  <g transform="translate(878 112)">
+    <rect x="0" y="0" width="242" height="250" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <rect x="0" y="0" width="242" height="5" rx="2.5" fill="#9e6a03"/>
+    <text x="18" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="20" fill="#e3b341">Redis Backend</text>
+    <text x="18" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="15" fill="#8b949e">结果存储 · 回传</text>
+    <g transform="translate(18 92)">
+      <rect x="0" y="0" width="206" height="112" rx="8" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+      <text x="12" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="14" fill="#e3b341">result_echo → "Hello, World!"</text>
+      <text x="12" y="58" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="14" fill="#e3b341">result_hello → "Hello, Alice!"</text>
+      <text x="12" y="86" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="14" fill="#e3b341">result_number → 14 / 19</text>
+    </g>
+    <text x="18" y="230" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="13" fill="#8b949e">redis://127.0.0.1:6379/1</text>
+  </g>
+
+  <!-- 箭头（gap 中部 y=237） -->
+  <line x1="322" y1="237" x2="340" y2="237" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="588" y1="237" x2="606" y2="237" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="854" y1="237" x2="872" y2="237" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- 结果返回虚线（backend → producer 底部） -->
+  <path d="M 999 362 L 999 384 L 201 384 L 201 362" fill="none" stroke="#4caf50"
+        stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow2)"/>
+  <text x="600" y="402" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+        font-size="16" fill="#4caf50">任务结果经 .get() 回传生产者</text>
+</svg>

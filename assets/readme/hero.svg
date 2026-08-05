@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="400" viewBox="0 0 1200 400"
+     role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">Celery Learn - 异步任务队列学习项目</title>
+  <desc id="hero-desc">深色终端风格横幅：左侧是项目名与一句话价值，右侧是 producer 到 Redis 到 worker 再到 backend 的消息队列架构与真实运行输出。</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <!-- 背景与信号线 motif -->
+  <rect width="1200" height="400" rx="24" fill="#0d1117"/>
+  <rect x="0" y="0" width="1200" height="3" fill="#4caf50"/>
+
+  <!-- ===== 左侧：标题块 ===== -->
+  <g transform="translate(64 56)">
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="17" fill="#4caf50" letter-spacing="3">CELERY · ASYNC TASK QUEUE</text>
+    <text x="0" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="58" font-weight="700" fill="#f0f6fc">Celery Learn</text>
+    <text x="0" y="102" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="26" fill="#8b949e">异步任务队列学习项目</text>
+    <text x="0" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="19" fill="#c9d1d9">最小的完整链路：producer → broker → worker → backend</text>
+    <text x="0" y="176" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+          font-size="18" fill="#8b949e">三个任务函数，讲清 Celery 全部核心概念</text>
+    <g transform="translate(0 234)">
+      <rect x="0" y="0" width="420" height="38" rx="19" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="20" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="16" fill="#8b949e">celery 5.6.3</text>
+      <circle cx="180" cy="19" r="3" fill="#30363d"/>
+      <text x="196" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="16" fill="#8b949e">python 3.14</text>
+      <circle cx="316" cy="19" r="3" fill="#30363d"/>
+      <text x="332" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="16" fill="#8b949e">redis 7</text>
+    </g>
+  </g>
+
+  <!-- ===== 右侧：架构流（4 节点） ===== -->
+  <g transform="translate(700 36)">
+    <g>
+      <rect x="0"   y="0" width="88" height="56" rx="10" fill="#1b6e3a"/>
+      <text x="44" y="25" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#f0f6fc">producer</text>
+      <text x="44" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#9be9a8">.py</text>
+    </g>
+    <line x1="96" y1="28" x2="114" y2="28" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <g>
+      <rect x="118" y="0" width="88" height="56" rx="10" fill="#7d1f1a"/>
+      <text x="162" y="25" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#f0f6fc">broker</text>
+      <text x="162" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#ffb3a7">redis /0</text>
+    </g>
+    <line x1="214" y1="28" x2="232" y2="28" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <g>
+      <rect x="236" y="0" width="88" height="56" rx="10" fill="#163a63"/>
+      <text x="280" y="25" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#f0f6fc">worker</text>
+      <text x="280" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#9ecbff">3 tasks</text>
+    </g>
+    <line x1="332" y1="28" x2="350" y2="28" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <g>
+      <rect x="354" y="0" width="88" height="56" rx="10" fill="#6b4a02"/>
+      <text x="398" y="25" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="15" fill="#f0f6fc">backend</text>
+      <text x="398" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="12" fill="#ffdf9e">redis /1</text>
+    </g>
+    <!-- 结果返回虚线 -->
+    <line x1="398" y1="64" x2="44" y2="64" stroke="#4caf50" stroke-width="1.5"
+          stroke-dasharray="5 5" marker-end="url(#arrow)"/>
+    <text x="200" y="78" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="12" fill="#4caf50">result</text>
+  </g>
+
+  <!-- ===== 右侧下方：真实输出终端 ===== -->
+  <g transform="translate(700 132)">
+    <rect x="0" y="0" width="448" height="228" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <!-- 终端标题栏 -->
+    <circle cx="18" cy="18" r="5" fill="#ff5f57"/>
+    <circle cx="36" cy="18" r="5" fill="#febc2e"/>
+    <circle cx="54" cy="18" r="5" fill="#28c840"/>
+    <text x="224" y="23" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="13" fill="#8b949e">producer.py — 真实运行输出</text>
+    <line x1="0" y1="36" x2="448" y2="36" stroke="#30363d" stroke-width="1"/>
+    <!-- 输出内容 -->
+    <text x="20" y="70" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="15" fill="#4caf50">$ python producer.py</text>
+    <text x="20" y="98" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="15" fill="#c9d1d9">Echo Task Result: Hello, World!</text>
+    <text x="20" y="126" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="15" fill="#c9d1d9">Say Hello Task Result: Hello, Alice!</text>
+    <text x="20" y="154" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="15" fill="#c9d1d9">Number Task 1 Result: 14</text>
+    <text x="20" y="182" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="15" fill="#c9d1d9">Number Task 2 Result: 19</text>
+    <text x="20" y="210" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="15" fill="#4caf50">All tasks completed.</text>
+  </g>
+</svg>
